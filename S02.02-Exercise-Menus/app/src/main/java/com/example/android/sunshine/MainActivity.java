@@ -18,13 +18,17 @@ package com.example.android.sunshine;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.sunshine.data.SunshinePreferences;
 import com.example.android.sunshine.utilities.NetworkUtils;
 import com.example.android.sunshine.utilities.OpenWeatherJsonUtils;
 
 import java.net.URL;
+import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -97,12 +101,31 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // TODO (2) Create a menu resource in res/menu/ called forecast.xml
-    // TODO (3) Add one item to the menu with an ID of action_refresh
-    // TODO (4) Set the title of the menu item to "Refresh" using strings.xml
+    // TODODONE (2) Create a menu resource in res/menu/ called forecast.xml
+    // TODODONE (3) Add one item to the menu with an ID of action_refresh
+    // TODODONE (4) Set the title of the menu item to "Refresh" using strings.xml
 
-    // TODO (5) Override onCreateOptionsMenu to inflate the menu for this Activity
-    // TODO (6) Return true to display the menu
+    // TODODONE (5) Override onCreateOptionsMenu to inflate the menu for this Activity
+    // TODODONE (6) Return true to display the menu
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.forecast, menu);
+        return true;
+    }
+
 
     // TODO (7) Override onOptionsItemSelected to handle clicks on the refresh button
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if(itemId == R.id.action_refresh){
+            //Toast.makeText(this, "I handle this menu click", Toast.LENGTH_SHORT).show();
+            mWeatherTextView.setText("");
+            loadWeatherData();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
