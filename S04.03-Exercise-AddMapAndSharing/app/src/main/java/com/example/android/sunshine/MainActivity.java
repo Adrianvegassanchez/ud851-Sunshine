@@ -219,10 +219,26 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
             mForecastAdapter.setWeatherData(null);
             loadWeatherData();
             return true;
+        }else if(id == R.id.action_open_map){
+            // TODODONE (2) Launch the map when the map menu item is clicked
+            String address = "1600 Amphitheatre Parkway, CA";
+            Uri.Builder uriBuilder = new Uri.Builder();
+            uriBuilder.scheme("geo")
+                    .path("0,0")
+                    .query(address);
+            Uri adressUri = uriBuilder.build();
+            showMap(adressUri);
         }
 
-        // TODO (2) Launch the map when the map menu item is clicked
-
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showMap(Uri uri){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(uri);
+        if(intent.resolveActivity(getPackageManager())!=null){
+            Log.e(TAG, "ShowMap");
+            startActivity(intent);
+        }
     }
 }
